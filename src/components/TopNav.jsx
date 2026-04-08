@@ -1,8 +1,8 @@
 import React from 'react';
 import './TopNav.css';
-import { Search, ChevronDown, HelpCircle, Gift } from 'lucide-react';
+import { Search, ChevronDown, HelpCircle, Gift, PanelRight } from 'lucide-react';
 
-const TopNav = () => {
+const TopNav = ({ toggleRightSidebar, openCreateModal }) => {
   return (
     <div className="top-nav">
       <div className="top-nav-left">
@@ -17,12 +17,15 @@ const TopNav = () => {
       </div>
       
       <div className="top-nav-right">
-        <button className="create-button">
+        <button className="create-button" onClick={openCreateModal}>
           Create <ChevronDown size={14} className="dropdown-icon" />
         </button>
         
         <div className="nav-icon-action">
           <HelpCircle size={20} />
+        </div>
+        <div className="nav-icon-action" onClick={toggleRightSidebar} title="Toggle Sidebar">
+          <PanelRight size={20} />
         </div>
         <div className="nav-icon-action">
           <Gift size={20} />

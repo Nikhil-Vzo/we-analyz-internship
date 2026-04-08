@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Sidebar.css';
 import {
   Inbox,
@@ -16,6 +16,22 @@ import {
 } from 'lucide-react';
 
 const Sidebar = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const icons = [
+    { component: Inbox },
+    { component: Lightbulb },
+    { component: ClipboardList },
+    { component: FileText },
+    { component: Calculator },
+    { component: LayoutGrid },
+    { component: Layers },
+    { component: Crown },
+    { component: Database },
+    { component: History },
+    { component: BarChart2 }
+  ];
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
@@ -23,39 +39,18 @@ const Sidebar = () => {
       </div>
       
       <div className="sidebar-icons">
-        <div className="icon-wrapper active">
-          <Inbox size={20} className="icon active-icon" />
-        </div>
-        <div className="icon-wrapper">
-          <Lightbulb size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <ClipboardList size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <FileText size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <Calculator size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <LayoutGrid size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <Layers size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <Crown size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <Database size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <History size={20} className="icon" />
-        </div>
-        <div className="icon-wrapper">
-          <BarChart2 size={20} className="icon" />
-        </div>
+        {icons.map((IconClass, index) => {
+          const isActive = activeIndex === index;
+          return (
+            <div 
+              key={index} 
+              className={`icon-wrapper ${isActive ? 'active' : ''}`}
+              onClick={() => setActiveIndex(index)}
+            >
+              <IconClass.component size={20} className={`icon ${isActive ? 'active-icon' : ''}`} />
+            </div>
+          );
+        })}
         <div className="icon-wrapper last-icon">
           <Settings size={20} className="icon" />
         </div>

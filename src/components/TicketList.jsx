@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TicketList.css';
 import { Search, Circle, MinusCircle, AlertCircle, ArrowDownCircle, CheckCircle2 } from 'lucide-react';
 
@@ -96,6 +96,8 @@ const PriorityIcon = ({ type }) => {
 };
 
 const TicketList = () => {
+  const [activeTicketIndex, setActiveTicketIndex] = useState(1);
+
   return (
     <div className="ticket-list-container">
       <div className="ticket-search-box">
@@ -106,36 +108,43 @@ const TicketList = () => {
       </div>
       
       <div className="ticket-list-scroll">
-        {mockTickets.map((ticket, index) => (
-          <div key={index} className={`ticket-item ${ticket.active ? 'active' : ''}`}>
-            {ticket.active && <div className="active-indicator"></div>}
-            
-            <div className="ticket-header-row">
-              <span className="ticket-title">{ticket.title}</span>
-              <span className="ticket-date">{ticket.date}</span>
-            </div>
-            
-            <div className="ticket-meta-row">
-              <div className="meta-left">
-                <input type="checkbox" className="ticket-checkbox" />
-                <span className="ticket-id">{ticket.id}</span>
-                <span className={`ticket-status ${ticket.status === 'Done' ? 'status-done' : ''}`}>
-                  {ticket.status}
-                </span>
-                <PriorityIcon type={ticket.priority} />
+        {mockTickets.map((ticket, index) => {
+          const isActive = activeTicketIndex === index;
+          return (
+            <div 
+              key={index} 
+              className={`ticket-item ${isActive ? 'active' : ''}`}
+              onClick={() => setActiveTicketIndex(index)}
+            >
+              {isActive && <div className="active-indicator"></div>}
+              
+              <div className="ticket-header-row">
+                <span className="ticket-title">{ticket.title}</span>
+                <span className="ticket-date">{ticket.date}</span>
               </div>
               
-              <div className="meta-right">
-                <div className="avatar-group">
-                  {ticket.avatars.map((avatar, i) => (
-                    <img key={i} src={avatar} alt="avatar" className="ticket-avatar" />
-                  ))}
-                  {ticket.tag && <span className="ticket-tag">{ticket.tag}</span>}
+              <div className="ticket-meta-row">
+                <div className="meta-left">
+                  <input type="checkbox" className="ticket-checkbox" onClick={(e) => e.stopPropagation()} />
+                  <span className="ticket-id">{ticket.id}</span>
+                  <span className={`ticket-status ${ticket.status === 'Done' ? 'status-done' : ''}`}>
+                    {ticket.status}
+                  </span>
+                  <PriorityIcon type={ticket.priority} />
+                </div>
+                
+                <div className="meta-right">
+                  <div className="avatar-group">
+                    {ticket.avatars.map((avatar, i) => (
+                      <img key={i} src={avatar} alt="avatar" className="ticket-avatar" />
+                    ))}
+                    {ticket.tag && <span className="ticket-tag">{ticket.tag}</span>}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

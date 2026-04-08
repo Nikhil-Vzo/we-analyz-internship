@@ -29,6 +29,13 @@
   justify-content: center;
   border-radius: 8px;
   position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-icon:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .logo-icon::after {
@@ -59,13 +66,19 @@
   justify-content: center;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #638ce8;
 }
 
 .icon-wrapper:hover:not(.active) {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper:active:not(.active) {
+  transform: translateY(0);
 }
 
 .icon-wrapper.active {
